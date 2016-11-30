@@ -30,6 +30,14 @@ public class MainActivity extends AppCompatActivity {
         text = (TextView) findViewById(R.id.text);
         final File file = new File(getFilesDir(), fileName);
         final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
+        if (file.exists()) {
+            image.setImageBitmap(bitmap);
+            image.setVisibility(View.VISIBLE);
+            text.setVisibility(View.INVISIBLE);
+        } else {
+            image.setVisibility(View.INVISIBLE);
+            text.setVisibility(View.VISIBLE);
+        }
         pRec = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -47,14 +55,6 @@ public class MainActivity extends AppCompatActivity {
         };
         registerReceiver(pRec, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(qRes, new IntentFilter(bc));
-        if (file.exists()) {
-            image.setImageBitmap(bitmap);
-            image.setVisibility(View.VISIBLE);
-            text.setVisibility(View.INVISIBLE);
-        } else {
-            image.setVisibility(View.INVISIBLE);
-            text.setVisibility(View.VISIBLE);
-        }
     }
 
     @Override
