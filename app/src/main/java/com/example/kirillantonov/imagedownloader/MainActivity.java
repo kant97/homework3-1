@@ -29,15 +29,7 @@ public class MainActivity extends AppCompatActivity {
         image = (ImageView) findViewById(R.id.image);
         text = (TextView) findViewById(R.id.text);
         final File file = new File(getFilesDir(), fileName);
-        final Bitmap bitmap = BitmapFactory.decodeFile(file.getAbsolutePath());
-        if (file.exists()) {
-            image.setImageBitmap(bitmap);
-            image.setVisibility(View.VISIBLE);
-            text.setVisibility(View.INVISIBLE);
-        } else {
-            image.setVisibility(View.INVISIBLE);
-            text.setVisibility(View.VISIBLE);
-        }
+        final Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
         pRec = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -48,13 +40,23 @@ public class MainActivity extends AppCompatActivity {
         qRes = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                image.setImageBitmap(bitmap);
+                final File file = new File(getFilesDir(), fileName);
+                final Bitmap bm = BitmapFactory.decodeFile(file.getAbsolutePath());
+                image.setImageBitmap(bm);
                 image.setVisibility(View.VISIBLE);
                 text.setVisibility(View.INVISIBLE);
             }
         };
         registerReceiver(pRec, new IntentFilter(Intent.ACTION_SCREEN_ON));
         registerReceiver(qRes, new IntentFilter(bc));
+        if (file.exists()) {
+            image.setImageBitmap(bm);
+            image.setVisibility(View.VISIBLE);
+            text.setVisibility(View.INVISIBLE);
+        } else {
+            image.setVisibility(View.INVISIBLE);
+            text.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

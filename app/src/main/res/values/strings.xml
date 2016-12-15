@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">ImageDownloader</string>
+    <string name="app_name">RotatorJPG</string>
     <string name="error_text">Изображение еще не загрузилось</string>
 </resources>
